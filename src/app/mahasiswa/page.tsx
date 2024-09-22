@@ -29,11 +29,17 @@ export default function Page() {
   }, []);
 
   const filteredData = useMemo(() => {
-    return data.filter((mahasiswa) => 
-      mahasiswa.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Ganti nama menjadi name
-      mahasiswa.nim.toString().includes(searchTerm) ||
-      mahasiswa.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    return data.filter((mahasiswa) => {
+      const name = mahasiswa.name ? mahasiswa.name.toLowerCase() : "";
+      const email = mahasiswa.email ? mahasiswa.email.toLowerCase() : "";
+      const nim = mahasiswa.nim ? mahasiswa.nim.toString() : "";
+  
+      return (
+        name.includes(searchTerm.toLowerCase()) ||
+        nim.includes(searchTerm) ||
+        email.includes(searchTerm.toLowerCase())
+      );
+    });
   }, [searchTerm, data]);
 
   return (

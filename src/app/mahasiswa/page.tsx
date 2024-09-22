@@ -4,31 +4,16 @@ import { Mahasiswa, columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
+import axios from "axios";
 
 async function getMahasiswa(): Promise<Mahasiswa[]> {
-  return [
-    {
-      id: "1",
-      nama: "Dzaki Wismadi",
-      nim: 497501,
-      email: "dzakiwismadi@gmail.com",
-      password: "capacitor Forint",
-    },
-    {
-      id: "2",
-      nama: "Jono Kartono",
-      nim: 497569,
-      email: "jonokart@gmail.com",
-      password: "Apaan kek",
-    },
-    {
-      id: "3",
-      nama: "Alex Turner",
-      nim: 497505,
-      email: "Alexturner@gmail.com",
-      password: "Balaclava",
-    },
-  ];
+  try {
+    const response = await axios.get("http://localhost:3000/mahasiswa");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch data", error);
+    return [];
+  }
 }
 
 export default function Page() {
@@ -45,10 +30,10 @@ export default function Page() {
 
   const filteredData = useMemo(() => {
     return data.filter((mahasiswa) => 
-      mahasiswa.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      mahasiswa.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Ganti nama menjadi name
       mahasiswa.nim.toString().includes(searchTerm) ||
       mahasiswa.email.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    );
   }, [searchTerm, data]);
 
   return (

@@ -17,7 +17,7 @@ import {
 // You can use a Zod schema here if you want.
 export type Mahasiswa = {
   id: string
-  nama: string
+  name: string
   nim: number
   email: string
   password: string
@@ -25,7 +25,7 @@ export type Mahasiswa = {
 
 export const columns: ColumnDef<Mahasiswa>[] = [
   {
-    accessorKey: "nama",
+    accessorKey: "name",
     header: "Nama",
   },
   {

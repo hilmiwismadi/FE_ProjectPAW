@@ -55,7 +55,6 @@ export const columns: ColumnDef<Mahasiswa>[] = [
  
       const handleCopy = async () => {
         try {
-          // Menggunakan nim sebagai nilai yang akan disalin ke clipboard
           await navigator.clipboard.writeText(Mahasiswa.nim.toString());
           toast.success("NIM Mahasiswa berhasil disalin!", {
             position: "top-right",

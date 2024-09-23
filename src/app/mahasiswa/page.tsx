@@ -5,6 +5,8 @@ import { DataTable } from "@/components/data-table";
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 async function getMahasiswa(): Promise<Mahasiswa[]> {
   try {
@@ -31,9 +33,11 @@ export default function Page() {
   const filteredData = useMemo(() => {
     return data.filter((mahasiswa) => {
       const name = mahasiswa.name ? mahasiswa.name.toLowerCase() : "";
-      const username = mahasiswa.username ? mahasiswa.username.toLowerCase() : "";
+      const username = mahasiswa.username
+        ? mahasiswa.username.toLowerCase()
+        : "";
       const nim = mahasiswa.nim ? mahasiswa.nim.toString() : "";
-  
+
       return (
         name.includes(searchTerm.toLowerCase()) ||
         nim.includes(searchTerm) ||
@@ -43,20 +47,29 @@ export default function Page() {
   }, [searchTerm, data]);
 
   return (
-    <section className="mx-auto py-10 bg-white w-full aspect-[1920/1080] flex flex-col justify-center items-center gap-5">
-      <div className="w-[80vw] h-8 relative flex justify-center items-center">
-        <input 
-          type="text"
-          placeholder="Search Mahasiswa ..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full h-full bg-slate-200 rounded cursor-pointer px-2 py-1 text-black"
-        />
-        <Image src={"/searchIcon.png"} width={16} height={16} alt="search icon" className="absolute right-4 cursor-pointer" />
-      </div>
-      <div className="w-[80vw] text-black ">
-        <DataTable columns={columns} data={filteredData} />
-      </div>
-    </section>
+    <>
+      <section className="mx-auto py-10 bg-white w-full aspect-[1920/1080] flex flex-col justify-center items-center gap-5">
+        <div className="w-[80vw] h-8 relative flex justify-center items-center">
+          <input
+            type="text"
+            placeholder="Search Mahasiswa ..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full h-full bg-slate-200 rounded cursor-pointer px-2 py-1 text-black"
+          />
+          <Image
+            src={"/searchIcon.png"}
+            width={16}
+            height={16}
+            alt="search icon"
+            className="absolute right-4 cursor-pointer"
+          />
+        </div>
+        <div className="w-[80vw] text-black ">
+          <DataTable columns={columns} data={filteredData} />
+        </div>
+      </section>
+      <ToastContainer />
+    </>
   );
 }

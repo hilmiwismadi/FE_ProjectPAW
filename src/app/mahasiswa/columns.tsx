@@ -12,6 +12,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -51,6 +53,32 @@ export const columns: ColumnDef<Mahasiswa>[] = [
     cell: ({ row }) => {
       const Mahasiswa = row.original
  
+      const handleCopy = async () => {
+        try {
+          // Menggunakan nim sebagai nilai yang akan disalin ke clipboard
+          await navigator.clipboard.writeText(Mahasiswa.nim.toString());
+          toast.success("NIM Mahasiswa berhasil disalin!", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } catch (error) {
+          toast.error("Gagal menyalin NIM", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -31,13 +31,13 @@ export default function Page() {
   const filteredData = useMemo(() => {
     return data.filter((mahasiswa) => {
       const name = mahasiswa.name ? mahasiswa.name.toLowerCase() : "";
-      const email = mahasiswa.email ? mahasiswa.email.toLowerCase() : "";
+      const username = mahasiswa.username ? mahasiswa.username.toLowerCase() : "";
       const nim = mahasiswa.nim ? mahasiswa.nim.toString() : "";
   
       return (
         name.includes(searchTerm.toLowerCase()) ||
         nim.includes(searchTerm) ||
-        email.includes(searchTerm.toLowerCase())
+        username.includes(searchTerm.toLowerCase())
       );
     });
   }, [searchTerm, data]);

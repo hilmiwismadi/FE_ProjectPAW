@@ -19,7 +19,7 @@ export type Mahasiswa = {
   id: string
   name: string
   nim: number
-  email: string
+  username: string
   password: string
 }
 
@@ -43,8 +43,8 @@ export const columns: ColumnDef<Mahasiswa>[] = [
       },
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "username",
+    header: "Username",
   },
   {
     id: "actions",

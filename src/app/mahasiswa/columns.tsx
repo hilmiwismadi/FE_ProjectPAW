@@ -89,7 +89,7 @@ export const columns: ColumnDef<Mahasiswa>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(Mahasiswa.nim.toString())}
+              onClick={handleCopy}
             >
               Copy Mahasiswa NIM
             </DropdownMenuItem>

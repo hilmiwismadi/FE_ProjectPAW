@@ -79,7 +79,7 @@ export default function Page() {
           </div>
         ) : (
           <p className="text-red-500">
-            No data avalable or failed to fetch data
+            No data available or failed to fetch data
           </p>
         )}
       </section>

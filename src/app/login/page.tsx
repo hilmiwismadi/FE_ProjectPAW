@@ -34,12 +34,12 @@ export default function page() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+      <div className="relative flex flex-col mx-3 sm:m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
         <div className="flex flex-col justify-center p-8 md:p-14">
-          <span className="mb-3 text-4xl font-bold text-slate-800">
+          <span className="mb-3 text-3xl sm:text-4xl font-bold text-slate-800">
             Welcome back
           </span>
-          <span className={`font-light text-slate-500 ${loginFailed ? "mb-4" : "mb-8"}`}>
+          <span className={`font-light text-sm sm:text-base text-slate-500 ${loginFailed ? "mb-4" : "mb-8"}`}>
             Welcome back! Please enter your details
           </span>
           {loginFailed && (
@@ -47,7 +47,7 @@ export default function page() {
           )}
           <form onSubmit={handleLogin}>
             <div className="py-4">
-              <span className="mb-2 text-md text-slate-500">Userame</span>
+              <span className="mb-2 text-md text-slate-500 text-sm sm:text-base">Userame</span>
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 text-slate-500"
@@ -74,11 +74,11 @@ export default function page() {
                   id="ch"
                   className="mr-2 cursor-pointer"
                 />
-                <span className="text-md text-slate-500">
+                <span className="text-md text-slate-500 sm:text-base text-sm">
                   Remember for 30 days
                 </span>
               </div>
-              <span className="font-bold text-md text-slate-500 cursor-pointer">
+              <span className="font-bold text-md text-slate-500 cursor-pointer sm:text-base text-sm">
                 Forgot password
               </span>
             </div>
@@ -86,7 +86,7 @@ export default function page() {
               Sign in
             </button>
           </form>
-          <button className="w-full border border-gray-300 text-slate-500 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
+          <button className="w-full border border-gray-300 text-slate-500 p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
             <Image
               src="/googleIcon.svg"
               alt="img"
@@ -96,9 +96,9 @@ export default function page() {
             />
             Sign in with Google
           </button>
-          <div className="text-center text-gray-400">
+          <div className="text-center text-gray-400 sm:text-base text-sm">
             Don't have an account?
-            <span className="font-bold text-black pl-3 cursor-pointer">
+            <span className="font-bold text-black pl-3 cursor-pointer sm:text-base text-sm">
               Sign up for free
             </span>
           </div>

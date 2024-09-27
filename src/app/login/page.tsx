@@ -4,11 +4,13 @@ import React from "react";
 import Image from "next/image";
 import login from "../../../services/auth.service.js";
 import { useEffect, useState, FormEvent } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function page() {
   const [loginFailed, setLoginFailed] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,6 +55,7 @@ export default function page() {
                 className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 text-slate-500"
                 name="username"
                 id="username"
+                required
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -62,6 +65,7 @@ export default function page() {
                 type="password"
                 name="password"
                 id="password"
+                required
                 className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 text-slate-500"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -98,7 +102,7 @@ export default function page() {
           </button>
           <div className="text-center text-gray-400 sm:text-base text-sm">
             Don't have an account?
-            <span className="font-bold text-black pl-3 cursor-pointer sm:text-base text-sm">
+            <span className="font-bold text-black pl-3 cursor-pointer sm:text-base text-sm" onClick={() => router.push("/register")}>
               Sign up for free
             </span>
           </div>

@@ -4,12 +4,15 @@ import React from "react";
 import Image from "next/image";
 import login from "../../../services/auth.service.js";
 import { useEffect, useState, FormEvent } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { FiChevronDown } from "react-icons/fi";
 
 export default function page() {
   const [loginFailed, setLoginFailed] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("mahasiswa");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
@@ -18,6 +21,7 @@ export default function page() {
     const data = {
       username: (e.target as HTMLFormElement).username.value,
       password: (e.target as HTMLFormElement).password.value,
+      role: role,
     };
 
     login(data, (status: boolean, res: any) => {
@@ -41,15 +45,21 @@ export default function page() {
           <span className="mb-3 text-3xl sm:text-4xl font-bold text-slate-800">
             Welcome back
           </span>
-          <span className={`font-light text-sm sm:text-base text-slate-500 ${loginFailed ? "mb-4" : "mb-8"}`}>
+          <span
+            className={`font-light text-sm sm:text-base text-slate-500 ${
+              loginFailed ? "mb-4" : "mb-8"
+            }`}
+          >
             Welcome back! Please enter your details
           </span>
           {loginFailed && (
             <p className="text-center text-red-500">{loginFailed}</p>
           )}
           <form onSubmit={handleLogin}>
-            <div className="py-4">
-              <span className="mb-2 text-md text-slate-500 text-sm sm:text-base">Userame</span>
+            <div className="py-2">
+              <span className="mb-2 text-md text-slate-500 text-sm sm:text-base">
+                Userame
+              </span>
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 text-slate-500"
@@ -59,7 +69,7 @@ export default function page() {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div className="py-4">
+            <div className="py-2">
               <span className="mb-2 text-md text-slate-500">Password</span>
               <input
                 type="password"
@@ -69,6 +79,53 @@ export default function page() {
                 className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500 text-slate-500"
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </div>
+            <div className="py-4 relative">
+              <label htmlFor="role" className="mb-2 text-md text-slate-500">
+                Login as
+              </label>
+              <div
+                className="w-full p-2 border border-gray-300 rounded-md text-slate-500 flex justify-between items-center cursor-pointer"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <span>{role.charAt(0).toUpperCase() + role.slice(1)}</span>
+                <FiChevronDown
+                  className={`transition-transform duration-300 ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+              {isDropdownOpen && (
+                <ul className="absolute z-10 bg-white border border-gray-300 text-slate-500 rounded-md mt-1 w-full">
+                  <li
+                    className="p-2 cursor-pointer hover:bg-gray-100"
+                    onClick={() => {
+                      setRole("mahasiswa");
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    Mahasiswa
+                  </li>
+                  <li
+                    className="p-2 cursor-pointer hover:bg-gray-100"
+                    onClick={() => {
+                      setRole("dosen");
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    Dosen
+                  </li>
+                  <li
+                    className="p-2 cursor-pointer hover:bg-gray-100"
+                    onClick={() => {
+                      setRole("admin");
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    Admin
+                  </li>
+                </ul>
+              )}
             </div>
             <div className="flex justify-between w-full py-4">
               <div className="mr-24">
@@ -102,7 +159,10 @@ export default function page() {
           </button>
           <div className="text-center text-gray-400 sm:text-base text-sm">
             Don't have an account?
-            <span className="font-bold text-black pl-3 cursor-pointer sm:text-base text-sm" onClick={() => router.push("/register")}>
+            <span
+              className="font-bold text-black pl-3 cursor-pointer sm:text-base text-sm"
+              onClick={() => router.push("/register")}
+            >
               Sign up for free
             </span>
           </div>
